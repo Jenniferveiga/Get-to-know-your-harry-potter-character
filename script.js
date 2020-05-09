@@ -36,3 +36,4 @@ function increaseMagic()
 
 }
 document.getElementById("progress").value = 100;
+//document.getElementById("progress").max = 200;
