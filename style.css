@@ -1,0 +1,11 @@
+button {
+    border-radius: 11px;
+    background: linear-gradient(225deg, #899e92, #a3bbad);
+    box-shadow:  -8px 8px 11px #899e92, 
+                 8px -8px 11px #a7c1b2; 
+}
+
+body {
+    text-align: center;
+    background-color: #98afa2;
+}
