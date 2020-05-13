@@ -1,11 +1,20 @@
 button {
-    border-radius: 11px;
-    background: linear-gradient(225deg, #899e92, #a3bbad);
-    box-shadow:  -8px 8px 11px #899e92, 
-                 8px -8px 11px #a7c1b2; 
+    color: lightcyan;
+    border-radius: 50px;
+    background: #285982;
+    box-shadow: inset 4px 4px 8px #21496b, 
+                inset -4px -4px 8px #2f6999;
 }
 
 body {
+    background-position: inherit;
+    background-size: cover;
+    background-image: url("HP3.png");
+    background-repeat: no-repeat;
     text-align: center;
-    background-color: #98afa2;
+    background-color: #171920;
+}
+
+label {
+    color: lightcyan;
 }
