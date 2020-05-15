@@ -3,6 +3,7 @@
 
 
 button {
+    color: blanchedalmond;
     border-radius: 26px;
     background: linear-gradient(145deg, #dbb375, #b99662);
     box-shadow:  10px 10px 20px #ae8e5d, 
@@ -15,7 +16,8 @@ button {
     font-size: 16px;                              
 }
 
-.center {    
+.center { 
+    color: blanchedalmond;   
     margin: 0;
     position: absolute;
     top: 55%;
