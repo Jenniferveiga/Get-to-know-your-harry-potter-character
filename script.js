@@ -99,15 +99,33 @@ document.getElementById("randomSpellPlayer").addEventListener("click", function(
     {
         if(bossSh)
         {
-            if(bossShield < 30) // need potential win condition because boss can die here
+            if (bossShield < 30) 
             {
-                bossShield -= playerDmg * 3;
-                tempNum = Math.abs(bossShield);
-                bossHP = decrementHP( tempNum, bossHP);
-                console.log(bossHP + " dmg boss");
-                setTimeout(function(){ bossChoice(); }, 5000);
-                bossShield = minValue;
-                bossSh = false;
+                if (bossShield === 20 && bossHP === 10)
+                {
+                    bossShield = minValue;
+                    bossSh = false;
+                    bossHP = minValue;
+                    window.location.href = "Winner.html";
+                }
+                else if (bossShield === 10 && bossHP === 20) 
+                {
+                    bossShield = minValue;
+                    bossSh = false;
+                    bossHP = minValue;
+                    window.location.href = "Winner.html";
+                }
+                else 
+                {
+                    bossShield -= playerDmg * 3;
+                    tempNum = Math.abs(bossShield);
+                    bossHP = decrementHP( tempNum, bossHP);
+                    console.log(bossHP + " dmg boss");
+                    setTimeout(function(){ bossChoice(); }, 5000);
+                    bossShield = minValue;
+                    bossSh = false;
+                }
+                
             }
            else if (bossShield === 30)
            {
@@ -177,7 +195,6 @@ document.getElementById("randomSpellPlayer").addEventListener("click", function(
             setTimeout(function(){ bossChoice(); }, 5000);
         }
     }
-    setTimeout(function(){ bossChoice(); }, 5000);
 });
 
 function bossChoice()
@@ -204,41 +221,167 @@ function bossChoice()
 // deals damage to player
 function damageBoss()
 {
-    playerHP = decrementHP( bossDmg, playerHP);
-    console.log(playerHP + " boss dmg");
+    if(plSH)
+    {
+        playerShield -= bossDmg;
+        if (playerShield === 0)
+        {
+            plSH = false;
+        }
+    }
+    if (playerHP === 10)
+    {
+        playerHP = decrementHP( bossDmg, playerHP);
+        console.log(playerHP + " dmg player");
+        window.location.href = "Loss.html";
+    }
+    else
+    {
+        playerHP = decrementHP( bossDmg, playerHP);
+        console.log(playerHP + " dmg player");
+    }
 }
 // heals the boss
 function healBoss()
 {
-    bossHP = incrementHP(bossDmg, bossHP);
-    console.log(bossHP + " heal to boss hp");
+    if(bossHP === maxValue)
+    {
+        console.log(bossHP + " boss hp is full");
+    }
+    else if (bossHP < maxValue)
+    {
+        bossHP = incrementHP(bossDmg, bossHP);
+        console.log(bossHP + " heal boss hp");
+    }
+    
 }
 // gives the boss a shield
 function shieldBoss()
 {
-    bossShield += 10;
-    console.log(bossShield + " increase shield by 10");
+    bossSh = true;
+    if(bossShield === maxValue)
+    {
+        console.log(bossShield + " boss shield is full");
+    }
+    else if (bossShield < maxValue)
+    {
+        bossShield += 10;
+        console.log(bossShield + " increase boss shield by 10");
+    }
+    
 }
 // random spell for boss
-function randomSpellBoss()
+function randomSpellBoss() // need to change player values to boss
 {
     tempNum = Math.floor(Math.random() * 3);
     console.log(tempNum + " tempNum")
     if (tempNum === 0)
     {
-        playerHP = decrementHP( bossDmg, playerHP);
-        console.log(playerHP + " random player dmg");
+        if(bossSh)
+        {
+            if (bossShield < 30) 
+            {
+                if (bossShield === 20 && bossHP === 10)
+                {
+                    bossShield = minValue;
+                    bossSh = false;
+                    bossHP = minValue;
+                    window.location.href = "Winner.html";
+                }
+                else if (bossShield === 10 && bossHP === 20) 
+                {
+                    bossShield = minValue;
+                    bossSh = false;
+                    bossHP = minValue;
+                    window.location.href = "Winner.html";
+                }
+                else 
+                {
+                    bossShield -= playerDmg * 3;
+                    tempNum = Math.abs(bossShield);
+                    bossHP = decrementHP( tempNum, bossHP);
+                    console.log(bossHP + " dmg boss");
+                    bossShield = minValue;
+                    bossSh = false;
+                }
+                
+            }
+           else if (bossShield === 30)
+           {
+                bossShield = minValue;
+                bossSh = false;
+           }
+           else 
+           {
+            bossShield -= playerDmg * 3;
+           }
+        
+        }
+        if (bossHP <= 30)
+        {
+            bossHP = minValue;
+            console.log(bossHP + " dmg boss");
+            window.location.href = "Winner.html";
+            // then switch over to win page
+        }
+        else
+        {
+            bossHP = decrementHP( playerDmg * 3, bossHP);
+            console.log(bossHP + " dmg boss");
+        }
     }
     else if (tempNum === 1) 
     {
-        bossHP = incrementHP( bossDmg, bossHP);
-        console.log( bossHP + " random boss heal");
+        if(playerHP === maxValue)
+        {
+            console.log(playerHP + " player hp is full");
+        }
+        else if (playerHP <= 70)
+        {
+            playerHP = incrementHP( playerDmg * 3, playerHP);
+            console.log(playerHP + " increase player hp");
+        }
+        else
+        {
+            playerHP = maxValue;
+            console.log(playerHP + " increase player hp to max");
+        }
     }
     else 
     {
-        bossShield += 30;
-        console.log(bossShield + " random boss heal");
+        plSH = true;
+        if(playerShield === maxValue)
+        {
+            console.log(playerShield + " player shield is full");
+        }
+        else if (playerShield <= 70)
+        {
+            playerShield += 30;
+            console.log(playerShield + " increase shield by 30");
+        }
+        else 
+        {
+            playerShield = maxValue;
+            console.log(playerShield + " increase shield by 30");
+        }
     }
+    // tempNum = Math.floor(Math.random() * 3);
+    // console.log(tempNum + " tempNum")
+    // if (tempNum === 0)
+    // {
+    //     playerHP = decrementHP( bossDmg, playerHP);
+    //     console.log(playerHP + " random player dmg");
+    // }
+    // else if (tempNum === 1) 
+    // {
+    //     bossHP = incrementHP( bossDmg, bossHP);
+    //     console.log( bossHP + " random boss heal");
+    // }
+    // else 
+    // {
+    //     bossShield += 30;
+    //     console.log(bossShield + " random boss heal");
+    // }
 }
 
 
