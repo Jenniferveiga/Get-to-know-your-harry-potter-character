@@ -42,7 +42,11 @@ fetch(url, {key: key})
   .then(function(data) {
   // Get the results
     let characters = data;
-    console.log(characters);
+    console.log(characters[0].name);
+    console.log(characters[1].name);
+    console.log(characters[2].name);
+    console.log(characters[3].name);
+    console.log(characters[4].name);
   //Map through the results
   return characters.map(function(character) {
     // Create the li's
@@ -82,7 +86,7 @@ fetch(url, {key: key})
         var results = response.data;
           console.log(results);
         // Looping over every result item
-        for (var i = 0; i < results.length; i++) {
+        for (var i = 0; i < 5; i++) {
 
           // Only taking action if the photo has an appropriate rating
           if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
