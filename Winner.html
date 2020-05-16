@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winner!</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
 </head>
 
 
@@ -13,12 +12,14 @@
     <div class="container">
         <div class="row">
           <div class="col">
-            <h1>WINNER!</h1>
+            <h1>
+            <button id="prize">WINNER!</button>  
+            </h1>
             <h2>Click to view your prize</h2>
           </div>
 
           <div class="center">
-            <button>Click Here</button>
+            <button id="retry">Retry!</button>
           </div>
 
         </div>
@@ -37,7 +38,17 @@
         </style>   
 
 
-
+<script>
+  document.getElementById("prize").addEventListener("click", function()
+        {
+            window.open('https://www.youtube.com/watch?v=G59JnM4JKNQ&t=1s', '_blank');
+            //window.location.href = "https://www.youtube.com/watch?v=G59JnM4JKNQ&t=1s";
+        });
+  document.getElementById("retry").addEventListener("click", function()
+        {
+            window.location.href = "index2.html";
+        });
+</script>
 </body>
 
 </html>

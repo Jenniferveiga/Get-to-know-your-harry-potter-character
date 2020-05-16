@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome!</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
 </head>
 
 <body>
@@ -16,14 +15,19 @@
           </div>
 
           <div class="center">
-            <button>Start Game</button>
+            <button id="nextPage">Start Game</button>
           </div>
 
         </div>
-      </div>
+    </div>
       
     
-
+<script>
+   document.getElementById("nextPage").addEventListener("click", function()
+        {
+            window.location.href = "index2.html";
+        });
+</script>
 </body>
 
 <style>
@@ -49,4 +53,3 @@
   
 
 </html>
-

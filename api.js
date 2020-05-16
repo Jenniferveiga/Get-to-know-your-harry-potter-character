@@ -42,11 +42,7 @@ fetch(url, {key: key})
   .then(function(data) {
   // Get the results
     let characters = data;
-    console.log(characters[0].name);
-    console.log(characters[1].name);
-    console.log(characters[2].name);
-    console.log(characters[3].name);
-    console.log(characters[4].name);
+    console.log(characters);
   //Map through the results
   return characters.map(function(character) {
     // Create the li's
@@ -67,10 +63,10 @@ fetch(url, {key: key})
 // below is the giphy api.
 
  // Event listener for all button elements
- $("#test3").on("click", function() {
+ //$("#test3").on("click", function() {
     // In this case, the "this" keyword refers to the button that was clicked
-    var person = $(this).attr("data-person");
-
+    var person = "Harry Potter";
+      console.log(person);
     // Constructing a URL to search Giphy for the name of the person who said the quote
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
       person + "&api_key=5jBkMFCpE1dsuv6GGczJr18I1H88lzt0&limit=101";
@@ -115,4 +111,4 @@ fetch(url, {key: key})
           }
         }
       });
-  });
+  //});
