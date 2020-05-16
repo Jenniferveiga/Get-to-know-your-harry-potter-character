@@ -8,6 +8,7 @@ var plSH = false;
 var bossSh = false;
 var minValue = 0;
 var maxValue = 100;
+var playerAttacked = false;
 console.log(bossHP + " boss hp");
 console.log(bossShield + " boss sheild");
 console.log(playerHP + " player hp");
@@ -33,193 +34,218 @@ return character -= dmgToCharacter;
 
 // linked to player attack button.
  document.getElementById("attackPlayer").addEventListener("click", function()
-{
-    if(bossSh)
-    {
-        document.getElementById("bossShield").value -= playerDmg;
-        bossShield -= playerDmg;
-        setTimeout(function(){ bossChoice(); }, 5000);
-        if (bossShield === 0)
+{   
+    if(!playerAttacked)
+    {   playerAttacked = true;
+        if(bossSh)
         {
-            document.getElementById("bossShield").value = 0;
-            bossSh = false;
-        }
-    }
-    if(!bossSh)
-    {
-        if (bossHP === 10)
-        {
-            document.getElementById("bossHP").value -= playerDmg;
-            bossHP = decrementHP( playerDmg, bossHP);
-            console.log(bossHP + " dmg boss");
-            window.location.href = "Winner.html";
-        }
-        else
-        {
-            document.getElementById("bossHP").value -= playerDmg;
-            bossHP = decrementHP( playerDmg, bossHP);
-            console.log(bossHP + " dmg boss");
+            document.getElementById("bossShield").value -= playerDmg;
+            bossShield -= playerDmg;
             setTimeout(function(){ bossChoice(); }, 5000);
+            if (bossShield === 0)
+            {
+                document.getElementById("bossShield").value = 0;
+                bossSh = false;
+            }
+            document.getElementById("turn").innerHTML = "Bosses turn!";
+        }
+
+        if(!bossSh)
+        {
+            if (bossHP === 10)
+            {
+                document.getElementById("bossHP").value -= playerDmg;
+                bossHP = decrementHP( playerDmg, bossHP);
+                console.log(bossHP + " dmg boss");
+                window.location.href = "Winner.html";
+            }
+            else
+            {
+                document.getElementById("bossHP").value -= playerDmg;
+                bossHP = decrementHP( playerDmg, bossHP);
+                console.log(bossHP + " dmg boss");
+                setTimeout(function(){ bossChoice(); }, 5000);
+            }
+            document.getElementById("turn").innerHTML = "Bosses turn!";
         }
     }
-    
-  
+    // else{
+
+    // }
 });
 
 // linked to heal button
 document.getElementById("healPlayer").addEventListener("click", function()
 {
-    if(playerHP === maxValue)
-    {
-        setTimeout(function(){ bossChoice(); }, 5000);
-        console.log(playerHP + " player hp is full");
-    }
-    else if (playerHP < maxValue)
-    {
-        document.getElementById("playerHP").value += playerDmg;
-        playerHP = incrementHP( playerDmg, playerHP);
-        console.log(playerHP + " increase player hp");
-        setTimeout(function(){ bossChoice(); }, 5000);
+    if(!playerAttacked)
+    {   
+        playerAttacked = true;
+        if(playerHP === maxValue)
+        {
+            setTimeout(function(){ bossChoice(); }, 5000);
+            console.log(playerHP + " player hp is full");
+        }
+        else if (playerHP < maxValue)
+        {
+            document.getElementById("playerHP").value += playerDmg;
+            playerHP = incrementHP( playerDmg, playerHP);
+            console.log(playerHP + " increase player hp");
+            setTimeout(function(){ bossChoice(); }, 5000);
+        }
+        document.getElementById("turn").innerHTML = "Bosses turn!";
     }
 });
 
 // linked to the shield button
 document.getElementById("shieldPlayer").addEventListener("click", function()
 {
-    plSH = true;
-    if(playerShield === maxValue)
+    if(!playerAttacked)
     {
-        setTimeout(function(){ bossChoice(); }, 5000);
-        console.log(playerShield + " player shield is full");
-    }
-    else if (playerShield < maxValue)
-    {
-        document.getElementById("playerShield").value += 10;
-        playerShield += 10;
-        console.log(playerShield + " increase player shield by 10");
-        setTimeout(function(){ bossChoice(); }, 5000);
-    }
-});
-// linked to random button.
-document.getElementById("randomSpellPlayer").addEventListener("click", function()
-{
-    tempNum = Math.floor(Math.random() * 3);
-    console.log(tempNum + " tempNum")
-    if (tempNum === 0)
-    {
-        if(bossSh)
-        {
-            if (bossShield < 30) 
-            {
-                if (bossShield === 20 && bossHP === 10)
-                {
-                    document.getElementById("bossShield").value = 0;
-                    bossShield = minValue;
-                    bossSh = false;
-                    bossHP = minValue;
-                    window.location.href = "Winner.html";
-                }
-                else if (bossShield === 10 && bossHP === 20) 
-                {
-                    document.getElementById("bossShield").value = 0;
-                    bossShield = minValue;
-                    bossSh = false;
-                    bossHP = minValue;
-                    window.location.href = "Winner.html";
-                }
-                else 
-                {
-                    document.getElementById("bossShield").value -= playerDmg * 3; 
-                    bossShield -= playerDmg * 3;
-                    tempNum = Math.abs(bossShield);
-                    bossHP = decrementHP( tempNum, bossHP);
-                    console.log(bossHP + " dmg boss");
-                    setTimeout(function(){ bossChoice(); }, 5000);
-                    bossShield = minValue;
-                    bossSh = false;
-                }
-                
-            }
-           else if (bossShield === 30)
-           {
-                document.getElementById("bossShield").value = 0;
-                setTimeout(function(){ bossChoice(); }, 5000);
-                bossShield = minValue;
-                bossSh = false;
-           }
-           else 
-           {
-            document.getElementById("bossShield").value -= playerDmg * 3;
-            bossShield -= playerDmg * 3;
-            setTimeout(function(){ bossChoice(); }, 5000);
-           }
-        
-        }
-        if(!bossSh)
-        {
-            if (bossHP <= 30)
-            {
-                document.getElementById("bossHP").value = 0;
-                bossHP = minValue;
-                console.log(bossHP + " dmg boss");
-                window.location.href = "Winner.html";
-                // then switch over to win page
-            }
-            else
-            {
-                document.getElementById("bossHP").value -= playerDmg * 3;
-                bossHP = decrementHP( playerDmg * 3, bossHP);
-                console.log(bossHP + " dmg boss");
-                setTimeout(function(){ bossChoice(); }, 5000);
-            }
-        }
-    }
-    
-    else if (tempNum === 1) 
-    {
-        if(playerHP === maxValue)
-        {
-            setTimeout(function(){ bossChoice(); }, 5000);
-            console.log(playerHP + " player hp is full");
-        }
-        else if (playerHP <= 70)
-        {
-            document.getElementById("playerHP").value += playerDmg * 3;
-            playerHP = incrementHP( playerDmg * 3, playerHP);
-            console.log(playerHP + " increase player hp");
-            setTimeout(function(){ bossChoice(); }, 5000);
-        }
-        else
-        {
-            document.getElementById("playerHP").value = maxValue;
-            playerHP = maxValue;
-            console.log(playerHP + " increase player hp to max");
-            setTimeout(function(){ bossChoice(); }, 5000);
-        }
-    }
-    else 
-    {
+        playerAttacked = true;
         plSH = true;
         if(playerShield === maxValue)
         {
             setTimeout(function(){ bossChoice(); }, 5000);
             console.log(playerShield + " player shield is full");
         }
-        else if (playerShield <= 70)
+        else if (playerShield < maxValue)
         {
-            document.getElementById("playerShield").value += 30;
-            playerShield += 30;
-            console.log(playerShield + " increase player shield by 30");
+            document.getElementById("playerShield").value += 10;
+            playerShield += 10;
+            console.log(playerShield + " increase player shield by 10");
             setTimeout(function(){ bossChoice(); }, 5000);
+        }
+        document.getElementById("turn").innerHTML = "Bosses turn!";
+    }
+});
+// linked to random button.
+document.getElementById("randomSpellPlayer").addEventListener("click", function()
+{
+    if(!playerAttacked)
+    {
+        playerAttacked = true;
+        tempNum = Math.floor(Math.random() * 3);
+        console.log(tempNum + " tempNum")
+        if (tempNum === 0)
+        {
+            if(bossSh)
+            {
+                if (bossShield < 30) 
+                {
+                    if (bossShield === 20 && bossHP === 10)
+                    {
+                        document.getElementById("bossShield").value = 0;
+                        bossShield = minValue;
+                        bossSh = false;
+                        bossHP = minValue;
+                        window.location.href = "Winner.html";
+                    }
+                    else if (bossShield === 10 && bossHP === 20) 
+                    {
+                        document.getElementById("bossShield").value = 0;
+                        bossShield = minValue;
+                        bossSh = false;
+                        bossHP = minValue;
+                        window.location.href = "Winner.html";
+                    }
+                    else 
+                    {
+                        document.getElementById("bossShield").value -= playerDmg * 3; 
+                        bossShield -= playerDmg * 3;
+                        tempNum = Math.abs(bossShield);
+                        bossHP = decrementHP( tempNum, bossHP);
+                        console.log(bossHP + " dmg boss");
+                        setTimeout(function(){ bossChoice(); }, 5000);
+                        bossShield = minValue;
+                        bossSh = false;
+                    }
+                    
+                }
+               else if (bossShield === 30)
+               {
+                    document.getElementById("bossShield").value = 0;
+                    setTimeout(function(){ bossChoice(); }, 5000);
+                    bossShield = minValue;
+                    bossSh = false;
+               }
+               else 
+               {
+                document.getElementById("bossShield").value -= playerDmg * 3;
+                bossShield -= playerDmg * 3;
+                setTimeout(function(){ bossChoice(); }, 5000);
+               }
+            
+            }
+            if(!bossSh)
+            {
+                if (bossHP <= 30)
+                {
+                    document.getElementById("bossHP").value = 0;
+                    bossHP = minValue;
+                    console.log(bossHP + " dmg boss");
+                    window.location.href = "Winner.html";
+                    // then switch over to win page
+                }
+                else
+                {
+                    document.getElementById("bossHP").value -= playerDmg * 3;
+                    bossHP = decrementHP( playerDmg * 3, bossHP);
+                    console.log(bossHP + " dmg boss");
+                    setTimeout(function(){ bossChoice(); }, 5000);
+                }
+            }
+            document.getElementById("turn").innerHTML = "Bosses turn!";
+        }
+        
+        else if (tempNum === 1) 
+        {
+            if(playerHP === maxValue)
+            {
+                setTimeout(function(){ bossChoice(); }, 5000);
+                console.log(playerHP + " player hp is full");
+            }
+            else if (playerHP <= 70)
+            {
+                document.getElementById("playerHP").value += playerDmg * 3;
+                playerHP = incrementHP( playerDmg * 3, playerHP);
+                console.log(playerHP + " increase player hp");
+                setTimeout(function(){ bossChoice(); }, 5000);
+            }
+            else
+            {
+                document.getElementById("playerHP").value = maxValue;
+                playerHP = maxValue;
+                console.log(playerHP + " increase player hp to max");
+                setTimeout(function(){ bossChoice(); }, 5000);
+            }
+            document.getElementById("turn").innerHTML = "Bosses turn!";
         }
         else 
         {
-            document.getElementById("playerShield").value = maxValue;
-            playerShield = maxValue;
-            console.log(playerShield + " increase player shield by 30");
-            setTimeout(function(){ bossChoice(); }, 5000);
+            plSH = true;
+            if(playerShield === maxValue)
+            {
+                setTimeout(function(){ bossChoice(); }, 5000);
+                console.log(playerShield + " player shield is full");
+            }
+            else if (playerShield <= 70)
+            {
+                document.getElementById("playerShield").value += 30;
+                playerShield += 30;
+                console.log(playerShield + " increase player shield by 30");
+                setTimeout(function(){ bossChoice(); }, 5000);
+            }
+            else 
+            {
+                document.getElementById("playerShield").value = maxValue;
+                playerShield = maxValue;
+                console.log(playerShield + " increase player shield by 30");
+                setTimeout(function(){ bossChoice(); }, 5000);
+            }
+            document.getElementById("turn").innerHTML = "Bosses turn!";
         }
     }
+   
 });
 
 function bossChoice()
@@ -242,6 +268,8 @@ function bossChoice()
     {
         randomSpellBoss();
     }
+    playerAttacked = false;
+    document.getElementById("turn").innerHTML = "Your turn!";
 }
 // deals damage to player
 function damageBoss()
