@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fight!</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +15,7 @@
     <progress min=0 max=100 value=100 name=hel id="bossHP"></progress>
     <progress min=0 max=100 value=0 name=hel id="bossShield"></progress>
     <br>
-    <img src="https://media2.giphy.com/media/oGD3yIWPUdbri/200.gif?cid=e1bb72ffd92c5cd1f3f017d68f026e6ece79a66c721591d7&amp;rid=200.gif">
+    <img id="bossPic" src="https://media2.giphy.com/media/oGD3yIWPUdbri/200.gif?cid=e1bb72ffd92c5cd1f3f017d68f026e6ece79a66c721591d7&amp;rid=200.gif">
     <br>
     <br>
     
@@ -32,7 +33,8 @@
     <progress min=0 max=100 value=100 name=hel id="playerHP"></progress>
     <progress min=0 max=100 value=0 name=hel id="playerShield"></progress>
     <br>
-    <img src="https://media2.giphy.com/media/oGD3yIWPUdbri/200.gif?cid=e1bb72ffd92c5cd1f3f017d68f026e6ece79a66c721591d7&amp;rid=200.gif">
+    <img id="playerPic" src="">
+    <div id="gifs-appear-here" data-person="Harry Potter"></div>
     <br>
     <br>
 
@@ -42,7 +44,7 @@
     <button id = "randomSpellPlayer" type="button">Random</button>
     <br>
     <br>
-    <div id="gifs-appear-here" data-person="Harry Potter"></div>
+    
 
 <!-- <button id = "test2" type="button">Click Me!</button>
 <br>
